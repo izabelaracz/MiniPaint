@@ -14,6 +14,7 @@ namespace MiniPaint
 {
     public partial class Form1 : Form
     {
+        string path;
         Graphics graphics;
         Point tempPoint;
         Pen myPen;
@@ -35,6 +36,7 @@ namespace MiniPaint
             pictureBoxMyImage.Image = new Bitmap(800, 600);
             graphics = Graphics.FromImage(pictureBoxMyImage.Image);
             graphics.Clear(Color.White);
+            path = "";
         }
 
         private void otwórzToolStripMenuItem_Click(object sender, EventArgs e)
@@ -43,6 +45,8 @@ namespace MiniPaint
             {
                 pictureBoxMyImage.Image = Image.FromFile(openFileDialog.FileName);
                 graphics = Graphics.FromImage(pictureBoxMyImage.Image);
+                path = openFileDialog.FileName;
+                Text = path;
             }
         }
 
@@ -65,6 +69,18 @@ namespace MiniPaint
                         break;
                 }
                 pictureBoxMyImage.Image.Save(saveFileDialog.FileName, imageFormat);
+            }
+        }
+
+        private void zapiszToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (path != "")
+            {
+                string extension = Path.GetExtension(saveFileDialog.FileName);
+            }
+            else
+            {
+                zapiszJakoToolStripMenuItem_Click(null, null);
             }
         }
 
