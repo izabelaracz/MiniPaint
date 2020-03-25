@@ -14,10 +14,15 @@ namespace MiniPaint
 {
     public partial class Form1 : Form
     {
+        Graphics graphics;
+        Point tempPoint;
+        Pen myPen;
         public Form1()
         {
             InitializeComponent();
             openFileDialog.Filter = saveFileDialog.Filter = "Grafika BMP|*.bmp|Grafika PNG|*.png|Grafika JPG|*.jpg";
+            myPen = new Pen(Color.Red, 5);
+            myPen.EndCap = myPen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
         }
 
         private void otwórzToolStripMenuItem_Click(object sender, EventArgs e)
@@ -25,6 +30,7 @@ namespace MiniPaint
             if(openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 pictureBoxMyImage.Image = Image.FromFile(openFileDialog.FileName);
+                graphics = Graphics.FromImage(pictureBoxMyImage.Image);
             }
         }
 
@@ -48,6 +54,35 @@ namespace MiniPaint
                 }
                 pictureBoxMyImage.Image.Save(saveFileDialog.FileName, imageFormat);
             }
+        }
+
+        private void pictureBoxMyImage_MouseDown(object sender, MouseEventArgs e)
+        {
+           if(e.Button == MouseButtons.Left)
+            {
+                //graphics.DrawEllipse(new Pen(Color.Red),
+                //               e.X,
+                //                e.Y,
+                //                20,
+                //                20);
+                //pictureBoxMyImage.Refresh();
+                tempPoint = e.Location;
+            }
+        }
+
+        private void pictureBoxMyImage_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                graphics.DrawLine(myPen, tempPoint, e.Location);
+                pictureBoxMyImage.Refresh();
+            }
+            tempPoint = e.Location;
+        }
+
+        private void pictureBoxMyImage_MouseUp(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

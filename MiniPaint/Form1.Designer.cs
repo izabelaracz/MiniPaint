@@ -46,6 +46,9 @@
             this.pictureBoxMyImage.Size = new System.Drawing.Size(526, 318);
             this.pictureBoxMyImage.TabIndex = 0;
             this.pictureBoxMyImage.TabStop = false;
+            this.pictureBoxMyImage.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMyImage_MouseDown);
+            this.pictureBoxMyImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMyImage_MouseMove);
+            this.pictureBoxMyImage.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMyImage_MouseUp);
             // 
             // openFileDialog
             // 
